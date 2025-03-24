@@ -1,130 +1,73 @@
-\documentclass{article}
-\usepackage{hyperref}
-\usepackage{listings}
+# Gas Utility Service Management API
 
-\title{Gas Utility Service Management API}
-\author{Django REST Framework (DRF) Application}
-\date{}
+## 📌 Features
+- Customers can **create service requests** with details and file attachments.
+- Customers can **track request status** (Pending, In Progress, Resolved).
+- Support representatives can **update and manage service requests**.
+- RESTful API with **GET, POST, PUT, DELETE** endpoints.
+- Uses `.env` for environment variables & security.
+- Docker support for easy deployment.
 
-\begin{document}
+---
 
-\maketitle
 
-\section{📌 Features}
+## 📦 Installation & Setup
 
-\begin{itemize}
-    \item Customers can \textbf{create service requests} with details and file attachments.
-    \item Customers can \textbf{track request status} (Pending, In Progress, Resolved).
-    \item Support representatives can \textbf{update and manage service requests}.
-    \item RESTful API with \textbf{GET, POST, PUT, DELETE} endpoints.
-    \item Uses \texttt{.env} for environment variables \& security.
-    \item Docker support for easy deployment.
-\end{itemize}
+### 1️⃣ Clone the Repository
 
-\section{📂 Project Structure}
+git clone <url>
 
-\begin{lstlisting}
-gas-utility-api/
-│── config/                  # Django project settings
-│   ├── __init__.py
-│   ├── settings.py
-│   ├── urls.py
-│   ├── wsgi.py
-│   ├── asgi.py
-│── customers/               # Customer management app
-│   ├── migrations/
-│   ├── __init__.py
-│   ├── models.py
-│   ├── views.py
-│   ├── serializers.py
-│   ├── urls.py
-│── service_requests/        # Service request management app
-│   ├── migrations/
-│   ├── __init__.py
-│   ├── models.py
-│   ├── views.py
-│   ├── serializers.py
-│   ├── urls.py
-│── .env                     # Environment variables
-│── manage.py                # Django management script
-│── requirements.txt         # Dependencies list
-│── Dockerfile               # Docker setup
-│── README.md                # Documentation (this file)
-\end{lstlisting}
 
-\section{📦 Installation \& Setup}
+### 2️⃣ Set Up a Virtual Environment
+python -m venv venv source venv/bin/activate # On macOS/Linux venv\Scripts\activate # On Windows
 
-\subsection{1️⃣ Clone the Repository}
-\begin{lstlisting}
-git clone https://github.com/yourusername/gas-utility-api.git
-cd gas-utility-api
-\end{lstlisting}
 
-\subsection{2️⃣ Set Up a Virtual Environment}
-\begin{lstlisting}
-python -m venv venv
-source venv/bin/activate  # On macOS/Linux
-venv\Scripts\activate     # On Windows
-\end{lstlisting}
-
-\subsection{3️⃣ Install Dependencies}
-\begin{lstlisting}
+### 3️⃣ Install Dependencies
 pip install -r requirements.txt
-\end{lstlisting}
 
-\subsection{4️⃣ Create .env File}
-\begin{lstlisting}
-touch .env  # macOS/Linux
-echo > .env  # Windows
-\end{lstlisting}
 
-Add the following variables:
-\begin{lstlisting}
-SECRET_KEY="your-django-secret-key"
-DEBUG=True
-\end{lstlisting}
+### 4️⃣ Create .env File
+touch .env # macOS/Linux echo > .env # Windows
 
-\subsection{5️⃣ Apply Migrations}
-\begin{lstlisting}
+Add the following inside `.env`:
+SECRET_KEY="your-django-secret-key" DEBUG=True
+
+
+### 5️⃣ Apply Migrations
 python manage.py migrate
-\end{lstlisting}
 
-\subsection{6️⃣ Run the Development Server}
-\begin{lstlisting}
+### 6️⃣ Run the Development Server
 python manage.py runserver
-\end{lstlisting}
 
-\textbf{API Base URL:} \url{http://127.0.0.1:8000/}  
-\textbf{Django Admin Panel:} \url{http://127.0.0.1:8000/admin/}
+- **API Base URL:** `http://127.0.0.1:8000/`
+- **Django Admin Panel:** `http://127.0.0.1:8000/admin/`
 
-\section{🚀 API Endpoints}
+---
 
-\subsection{Customer Management}
+## 🚀 API Endpoints
 
-\begin{tabular}{|c|l|l|}
-\hline
-\textbf{Method} & \textbf{Endpoint} & \textbf{Description} \\ \hline
-GET    & \texttt{/api/customers/}         & List all customers     \\ \hline
-POST   & \texttt{/api/customers/}         & Create a new customer  \\ \hline
-GET    & \texttt{/api/customers/\{id\}/}  & Retrieve a customer    \\ \hline
-PUT    & \texttt{/api/customers/\{id\}/}  & Update customer details \\ \hline
-DELETE & \texttt{/api/customers/\{id\}/}  & Delete a customer      \\ \hline
-\end{tabular}
+### Customer Management
+| Method | Endpoint                 | Description           |
+|--------|--------------------------|-----------------------|
+| GET    | `/api/customers/`         | List all customers   |
+| POST   | `/api/customers/`         | Create a new customer |
+| GET    | `/api/customers/{id}/`    | Retrieve a customer  |
+| PUT    | `/api/customers/{id}/`    | Update customer details |
+| DELETE | `/api/customers/{id}/`    | Delete a customer    |
 
-\subsection{Service Requests}
+### Service Requests
+| Method | Endpoint                          | Description             |
+|--------|-----------------------------------|-------------------------|
+| GET    | `/api/service-requests/`         | List all service requests |
+| POST   | `/api/service-requests/`         | Create a new request    |
+| GET    | `/api/service-requests/{id}/`    | Retrieve a request      |
+| PUT    | `/api/service-requests/{id}/`    | Update request status   |
+| DELETE | `/api/service-requests/{id}/`    | Delete a request        |
 
-\begin{tabular}{|c|l|l|}
-\hline
-\textbf{Method} & \textbf{Endpoint} & \textbf{Description} \\ \hline
-GET    & \texttt{/api/service-requests/}         & List all service requests \\ \hline
-POST   & \texttt{/api/service-requests/}         & Create a new request      \\ \hline
-GET    & \texttt{/api/service-requests/\{id\}/}  & Retrieve a request        \\ \hline
-PUT    & \texttt{/api/service-requests/\{id\}/}  & Update request status     \\ \hline
-DELETE & \texttt{/api/service-requests/\{id\}/}  & Delete a request          \\ \hline
-\end{tabular}
+Test API in the browser: `http://127.0.0.1:8000/api/`
 
-\textbf{Test API in browser:} \url{http://127.0.0.1:8000/api/}
- 
+---
 
-\end{document}
+
+
 
